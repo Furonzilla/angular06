@@ -1,9 +1,9 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="searchForm" #myForm="ngForm">
   <div formGroupName="identifierAndTitle">
-    Identifiant:
-    <input name="identifier" formControlName="identifier" />
-    Titre:
-    <input name="title" formControlName="title" />
+    <div>
+      Identifiant: <input name="identifier" formControlName="identifier" />
+    </div>
+    <div>Titre: <input name="title" formControlName="title" /></div>
 
     <div
       *ngIf="
@@ -14,19 +14,26 @@
       L'un des deux champs 'Identifiant' ou 'Titre' doit être renseigné.
     </div>
   </div>
-  Type:
-  <select name="type" formControlName="type">
-    <option value="film">film</option>
-    <option value="série">série</option>
-    <option value="épisode">épisode</option>
-  </select>
-  Année de sortie:
-  <input type="number" name="yearOfRelease" formControlName="yearOfRelease" />
-  Fiche:
-  <select name="sheet" formControlName="sheet">
-    <option value="complète">complète</option>
-    <option value="courte">courte</option>
-  </select>
+  <div>
+    Type:
+    <select name="type" formControlName="type">
+      <option value="film">film</option>
+      <option value="série">série</option>
+      <option value="épisode">épisode</option>
+    </select>
+  </div>
+  <div>
+    Année de sortie:
+    <input type="number" name="yearOfRelease" formControlName="yearOfRelease" />
+  </div>
+
+  <div *ngIf="searchForm.get('identifierAndTitle')?.get('identifier')?.value">
+    Fiche:
+    <select name="sheet" formControlName="sheet">
+      <option value="complète">complète</option>
+      <option value="courte">courte</option>
+    </select>
+  </div>
   <div
     *ngIf="
       myForm.submitted && searchForm.controls.yearOfRelease.errors?.required
@@ -34,13 +41,20 @@
   >
     Le champs Année de sortie est requis.
   </div>
-  <div
-    *ngIf="
-      myForm.submitted && searchForm.errors?.min
-    "
-  >
-  L'année doit être comprise entre {{myForm.submitted && searchForm.errors?.min.minYearRequired}} et {{myForm.submitted && searchForm.errors?.min.maxYearRequired}}.
+  <div *ngIf="myForm.submitted && searchForm.get('yearOfRelease')?.errors?.min">
+    L'année doit être comprise entre
+    {{
+      myForm.submitted &&
+        searchForm.get("yearOfRelease")?.errors?.min.minYearRequired
+    }}
+    et
+    {{
+      myForm.submitted &&
+        searchForm.get("yearOfRelease")?.errors?.min.maxYearRequired
+    }}.
   </div>
 
-  <div><button type="submit">submit</button></div>
+  <div>
+    <button type="submit">submit</button> <button type="reset">reset</button>
+  </div>
 </form>

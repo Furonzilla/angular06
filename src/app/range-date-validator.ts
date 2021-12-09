@@ -5,18 +5,16 @@ export function rangeDateValidator(
   maxYear: Date // new Date()
 ): ValidatorFn {
   return (abstractControl: AbstractControl): ValidationErrors | null => {
-    const yearControl = abstractControl.get('yearOfRelease'); 
+    const yearControl = abstractControl;
     const maxYearRequired = maxYear.getFullYear();
-    if ( minYear > yearControl?.value || maxYearRequired < yearControl?.value) {   
-        console.log("erreur")
+    if (minYear > yearControl?.value || maxYearRequired < yearControl?.value) {
       return {
         min: {
           minYearRequired: minYear.toString(),
           maxYearRequired: maxYearRequired.toString(),
         },
       };
-    } else {   
-        console.log("good")     
+    } else {
       return null;
     }
   };

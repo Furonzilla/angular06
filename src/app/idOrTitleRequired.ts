@@ -1,14 +1,16 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-// Function CustomValidator which checks if the id or title are entered
-export function isRequiredValidator(
-  abstractControl: AbstractControl
-): { [key: string]: boolean } | null {
-  const identifierControl = abstractControl.get('identifier');
-  const titleControl = abstractControl.get('title');
-
-  if (identifierControl?.value || titleControl?.value) {
-    return null;
+export function isRequiredValidator(controlName1 : string, controlName2 : string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      // Get first control value
+      const control1 = control.get(controlName1)
+      // Get second control value
+      const control2 = control.get(controlName2);
+      if (control1?.value || control2?.value) {
+        return null;
+      }
+      return { isRequired: true }; // boolean pour afficher un message
+    };
   }
-  return { isRequired: true };
-}
+
+

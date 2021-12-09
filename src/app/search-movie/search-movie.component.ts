@@ -24,17 +24,22 @@ export class SearchMovieComponent implements OnInit {
           title: [''],
         },
         {
-          validator: isRequiredValidator,
+          validator: isRequiredValidator('identifier' , 'title'),
         }
       ),
       type: ['série'],
-      yearOfRelease: ['', [Validators.required]],
+      yearOfRelease: ['', [Validators.required, rangeDateValidator(1900, new Date())]],
       sheet: [''],
-    }, {validator : rangeDateValidator(1900, new Date())});
+    });
   }
 
   ngOnInit(): void {
     this.setSheet();
+    this.searchForm.valueChanges.subscribe(x => {
+      console.log('form value changed')
+      console.log(x)
+  })
+
   }
 
   setSheet() {
