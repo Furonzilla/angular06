@@ -1,0 +1,46 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="searchForm" #myForm="ngForm">
+  <div formGroupName="identifierAndTitle">
+    Identifiant:
+    <input name="identifier" formControlName="identifier" />
+    Titre:
+    <input name="title" formControlName="title" />
+
+    <div
+      *ngIf="
+        myForm.submitted &&
+        searchForm.get('identifierAndTitle')?.errors?.isRequired
+      "
+    >
+      L'un des deux champs 'Identifiant' ou 'Titre' doit être renseigné.
+    </div>
+  </div>
+  Type:
+  <select name="type" formControlName="type">
+    <option value="film">film</option>
+    <option value="série">série</option>
+    <option value="épisode">épisode</option>
+  </select>
+  Année de sortie:
+  <input type="number" name="yearOfRelease" formControlName="yearOfRelease" />
+  Fiche:
+  <select name="sheet" formControlName="sheet">
+    <option value="complète">complète</option>
+    <option value="courte">courte</option>
+  </select>
+  <div
+    *ngIf="
+      myForm.submitted && searchForm.controls.yearOfRelease.errors?.required
+    "
+  >
+    Le champs Année de sortie est requis.
+  </div>
+  <div
+    *ngIf="
+      myForm.submitted && searchForm.errors?.min
+    "
+  >
+  L'année doit être comprise entre {{myForm.submitted && searchForm.errors?.min.minYearRequired}} et {{myForm.submitted && searchForm.errors?.min.maxYearRequired}}.
+  </div>
+
+  <div><button type="submit">submit</button></div>
+</form>

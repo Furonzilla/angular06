@@ -1,7 +1,7 @@
 <form (ngSubmit)="myForm.valid && onSubmit()" #myForm="ngForm">
-  <span>Form submitted ? {{ myForm.submitted }}</span>
-  <span>Form valid ? {{ myForm.valid }}</span>
-  <span>Form invalid ? {{ myForm.valid }}</span>
+  <div>Form submitted ? {{ myForm.submitted }}</div>
+  <div>Form valid ? {{ myForm.valid }}</div>
+  <div>Form invalid ? {{ myForm.invalid }}</div>
   <div>
     <label for="mail-user">Email</label>
 
