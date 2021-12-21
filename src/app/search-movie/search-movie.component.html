@@ -1,11 +1,11 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="searchForm" #myForm="ngForm">
+<form (ngSubmit)="searchForm.valid && onSubmit()" [formGroup]="searchForm" #myForm="ngForm">
   <div formGroupName="identifierAndTitle">
     <div>
       Identifiant: <input name="identifier" formControlName="identifier" />
     </div>
     <div>Titre: <input name="title" formControlName="title" /></div>
 
-    <div
+    <div class="alert alert-danger" role="alert"
       *ngIf="
         myForm.submitted &&
         searchForm.get('identifierAndTitle')?.errors?.isRequired

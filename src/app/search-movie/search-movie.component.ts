@@ -51,6 +51,7 @@ export class SearchMovieComponent implements OnInit {
 
   onSubmit() {
     const formInfo = this.searchForm.value;
+    console.log('form value submitted')
     console.log(formInfo);
   }
 }
